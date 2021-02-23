@@ -2,6 +2,7 @@ from collections import deque
 import sys
 import math
 import numpy as np
+from util import writeToCsv
 
 def interact(env, agent, num_episodes=20000, window=100):
     """ Monitor agent's performance.
@@ -41,11 +42,16 @@ def interact(env, agent, num_episodes=20000, window=100):
             samp_reward += reward
             # update the state (s <- s') to next time step
             state = next_state
+
+            # if (i_episode == num_episodes):
+            #     env.render()
             if done:
                 # save final sampled reward
                 samp_rewards.append(samp_reward)
                 break
+        
         if (i_episode >= 100):
+            
             # get average reward from last 100 episodes
             avg_reward = np.mean(samp_rewards)
             # append to deque
@@ -53,6 +59,9 @@ def interact(env, agent, num_episodes=20000, window=100):
             # update best average reward
             if avg_reward > best_avg_reward:
                 best_avg_reward = avg_reward
+
+        if (i_episode == num_episodes):
+            writeToCsv("," + '%.3f' % best_avg_reward + "\n")
         # monitor progress
         print("\rEpisode {}/{} || Best average reward {}".format(i_episode, num_episodes, best_avg_reward), end="")
         sys.stdout.flush()

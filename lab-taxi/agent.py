@@ -2,6 +2,11 @@ import numpy as np
 from collections import defaultdict
 import random
 
+from util import writeToCsv
+
+
+
+
 class Agent:
 
     def __init__(self, nA=6):
@@ -14,13 +19,21 @@ class Agent:
         self.nA = nA
         self.Q = defaultdict(lambda: np.zeros(self.nA))
         
-        self.alpha = 0.1
-        self.gamma = 0.9999
+        self.gamma = 1.0
 
+        self.alpha = 1.0
+        self.alpha_decay = 0.99999
+        self.alpha_min = 0.05
+        
         self.eps_start = 1.0
-        self.eps_decay=.9999
+        self.eps_decay=0.999 ## .999993333 means it decays to 0.1 in 15k
         self.eps_min=0.0001
         self.epsilon = self.eps_start
+
+        writeToCsv(str(self.eps_start)+"," + str(self.eps_decay)+"," + str(self.eps_min)+"," + str(self.alpha) +"," + str(self.alpha_decay)+"," + str(self.alpha_min)+"," + str(self.gamma) +"," + "Sarsa Expected")
+
+        print("eps: ", self.eps_start ," -> ", self.eps_min, " || ", self.eps_decay)
+        print("alpha: ", self.alpha, " | gamma: ", self.gamma, "\n")
 
     def select_action(self, state):
         """ Given the state, select an action.
@@ -49,7 +62,7 @@ class Agent:
             else:                     # otherwise, select an action randomly
                 return random.choice(np.arange(nA))
 
-        self.epsilon = max(self.epsilon * self.eps_decay, self.eps_min)
+        
 
         return epsilon_greedy(self.Q, state, self.nA, self.epsilon)
 
@@ -70,15 +83,8 @@ class Agent:
             all_prob = np.ones(nA) * epsilon/nA
             prob_above_epsilon = (1 - epsilon) + (epsilon/nA) ## greedy choice
 
-
             greedy_action = np.argmax(Q[s_1])
             all_prob[greedy_action] = prob_above_epsilon
-
-            # prob_adj_value_best = prob_above_epsilon * Q[s_1][greedy_action]
-            # prob_adj_value_rest = np.dot(Q[s_1], prob_below_epsilon )
-            
-            # print(prob_adj_value_best)
-            # print(prob_adj_value_rest)
 
             return np.dot(Q[s_1], all_prob )
             
@@ -97,5 +103,10 @@ class Agent:
             return current_return + (alpha * difference)
 
         self.Q[state][action] = update_expected_Q(self.alpha, self.gamma, self.Q, state, action, reward, self.epsilon, self.nA, next_state )
-        
+
+        if done: 
+            self.epsilon = max(self.epsilon * self.eps_decay, self.eps_min)
+            self.alpha = max(self.alpha * self.alpha_decay, self.alpha_min)
+            
+
         
