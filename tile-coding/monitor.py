@@ -4,7 +4,7 @@ import math
 import numpy as np
 # from util import writeToCsv
 
-def interact(env, agent, num_episodes=20000, window=100):
+def interact(env, agent, num_episodes=20000, window=100, mode='train'):
     """ Monitor agent's performance.
     
     Params
@@ -19,6 +19,7 @@ def interact(env, agent, num_episodes=20000, window=100):
     - avg_rewards: deque containing average rewards
     - best_avg_reward: largest value in the avg_rewards deque
     """
+    print("New Simulation: num_episodes: ", num_episodes," | window: ", window, " | mode: ", mode)
     # initialize average rewards
     avg_rewards = deque(maxlen=num_episodes)
     # initialize best average reward
@@ -29,6 +30,8 @@ def interact(env, agent, num_episodes=20000, window=100):
     for i_episode in range(1, num_episodes+1):
         # begin the episode
         state = env.reset()
+        # reset agent values
+        agent.reset_episode(state)
         # initialize the sampled reward
         samp_reward = 0
         while True:
@@ -36,13 +39,16 @@ def interact(env, agent, num_episodes=20000, window=100):
             action = agent.select_action(state)
             # agent performs the selected action
             next_state, reward, done, _ = env.step(action)
+
+            if mode == 'test':
+                env.render()
             # agent performs internal updates based on sampled experience
             agent.step(state, action, reward, next_state, done)
             # update the sampled reward
             samp_reward += reward
             # update the state (s <- s') to next time step
             state = next_state
-
+           
             # if (i_episode == num_episodes):
             #     env.render()
             if done:
@@ -50,7 +56,7 @@ def interact(env, agent, num_episodes=20000, window=100):
                 samp_rewards.append(samp_reward)
                 break
         
-        if (i_episode >= 100):
+        if (i_episode >= window):
             
             # get average reward from last 100 episodes
             avg_reward = np.mean(samp_rewards)
@@ -60,6 +66,7 @@ def interact(env, agent, num_episodes=20000, window=100):
             if avg_reward > best_avg_reward:
                 best_avg_reward = avg_reward
 
+        
         # if (i_episode == num_episodes):
         #     writeToCsv("," + '%.3f' % best_avg_reward + "\n")
         # monitor progress
@@ -70,4 +77,6 @@ def interact(env, agent, num_episodes=20000, window=100):
             print('\nEnvironment solved in {} episodes.'.format(i_episode), end="")
             break
         if i_episode == num_episodes: print('\n')
+    
+    env.close()
     return avg_rewards, best_avg_reward
