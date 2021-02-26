@@ -4,7 +4,7 @@ import math
 import numpy as np
 # from util import writeToCsv
 
-def interact(env, agent, num_episodes=20000, window=100, mode='train'):
+def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1):
     """ Monitor agent's performance.
     
     Params
@@ -31,7 +31,7 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train'):
         # begin the episode
         state = env.reset()
         # reset agent values
-        agent.reset_episode(state)
+        agent.reset_episode(state, best_avg_reward)
         # initialize the sampled reward
         samp_reward = 0
         while True:
@@ -40,8 +40,11 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train'):
             # agent performs the selected action
             next_state, reward, done, _ = env.step(action)
 
-            if mode == 'test':
-                env.render()
+            if reward>0:
+                print(reward)
+
+            
+                
             # agent performs internal updates based on sampled experience
             agent.step(state, action, reward, next_state, done)
             # update the sampled reward
@@ -51,9 +54,13 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train'):
            
             # if (i_episode == num_episodes):
             #     env.render()
+            if mode == 'test' and (i_episode % math.floor(num_episodes/render)) == 0:
+                env.render()
             if done:
                 # save final sampled reward
                 samp_rewards.append(samp_reward)
+                if mode == 'test' and (i_episode % math.floor(num_episodes/render) == 0): 
+                     env.close()  
                 break
         
         if (i_episode >= window):
