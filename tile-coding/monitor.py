@@ -54,12 +54,12 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1)
            
             # if (i_episode == num_episodes):
             #     env.render()
-            if mode == 'test' and (i_episode % math.floor(num_episodes/render)) == 0:
+            if render > 0 and (i_episode % math.floor(num_episodes/render)) == 0:
                 env.render()
             if done:
                 # save final sampled reward
                 samp_rewards.append(samp_reward)
-                if mode == 'test' and (i_episode % math.floor(num_episodes/render) == 0): 
+                if render > 0 and (i_episode % math.floor(num_episodes/render) == 0): 
                      env.close()  
                 break
         
