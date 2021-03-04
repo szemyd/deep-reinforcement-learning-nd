@@ -4,7 +4,7 @@ import math
 import numpy as np
 # from util import writeToCsv
 
-def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1):
+def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1, solved=float('inf')):
     """ Monitor agent's performance.
     
     Params
@@ -40,8 +40,8 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1)
             # agent performs the selected action
             next_state, reward, done, _ = env.step(action)
 
-            if reward>0:
-                print(reward)
+            # if reward>0:
+            #     print(reward)
 
             
                 
@@ -80,7 +80,7 @@ def interact(env, agent, num_episodes=20000, window=100, mode='train', render=1)
         print("\rEpisode {}/{} || Best average reward {}".format(i_episode, num_episodes, best_avg_reward), end="")
         sys.stdout.flush()
         # check if task is solved (according to OpenAI Gym)
-        if best_avg_reward >= 9.7:
+        if best_avg_reward >= solved:
             print('\nEnvironment solved in {} episodes.'.format(i_episode), end="")
             break
         if i_episode == num_episodes: print('\n')
