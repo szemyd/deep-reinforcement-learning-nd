@@ -91,7 +91,9 @@ class Agent():
         Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
 
         # Get expected Q values from local model
-        Q_expected = self.qnetwork_local(states).gather(1, actions)
+        ## gether() gets the actions according to given indexes, more here https://stackoverflow.com/a/54706716/6054066
+        ## effectively Q_expected will have the expected reward value of each state-action pair
+        Q_expected = self.qnetwork_local(states).gather(1, actions) 
 
         # Compute loss
         loss = F.mse_loss(Q_expected, Q_targets)
