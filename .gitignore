@@ -102,3 +102,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+p1_navigation/Banana_Windows_x86_64/
+
+p1_navigation/Banana_Windows_x86/
