@@ -1,10 +1,18 @@
-# Deep Q-Learning Agent to solve the Banana-collecting problem
+# Deep Q-Learning Agents to solve the Banana-collecting problem
 
+This repo contains implementation of two DQN Agents in __PyTorch__:
+-  a __base Agent__, with a Replay Buffer, a seperate target Q-Network, with a 2 hidden layer deep network
+- an Agent built on top of the base Agent, which utilizes __Prioritized Replay__.
+
+Agents are tested on the Banana environment packaged and provided by Udacity.
 
 
 ## Environment
 ---
 ![Environment Screenshot](banana_screenshot.png)
+### Goal & Reward
+Collect yellow bananas (+1.0 point), avoid purple bananas (-1.0 point). Interaction is episodic (but could be continous), with a hard step limit of 300.
+
 ### Properties of the environment
 |                |        | 
 | -------------- | ------ |
@@ -13,6 +21,8 @@
 | _agents (brains)_: | __1__ |
 | _considered solved_: | __> +13__ avg. over 100 episodes |
 | _termination criteria_:| __300__ time steps | 
+| _reward_:| __+1.0__ when collecting yellow bananas<br />__-1.0__ when collecting a purple banana|
+
 
 
 _source of the environment:_ __Udacity - Deep Reinforcement Learning__
@@ -98,11 +108,12 @@ _engine_: __unityagents__ `from unityagents import UnityEnvironment`
 
 ### Performance
 
-| Training parameters |      |
-|---------------------|------|
-| Score window        | 100  |
-| Number of episodes  | 2000 |
-| Episode length      | 300  |
+| Training parameters | Base DQN Agent     | Prioritized Replay|
+|---------------------|------|-|
+| Score window        | 100  | |
+| Number of episodes  | 2000 ||
+| Episode length      | 300  ||
+| Best Score          | 15.4 ||
 
 ![Score to number of episodes](performance_100_2000_300_dqn_base.png)
 
