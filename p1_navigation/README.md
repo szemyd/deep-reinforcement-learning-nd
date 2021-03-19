@@ -44,7 +44,8 @@ _engine_: __unityagents__ `from unityagents import UnityEnvironment`
 2. Place the file in the DRLND GitHub repository, in the `p1_navigation/` folder, and unzip (or decompress) the file. 
 
 ### Quick start
-    def create_env(file_name):
+```python
+def create_env(file_name):
         # please do not modify the line below
         env = UnityEnvironment(file_name=file_name)
 
@@ -71,7 +72,7 @@ _engine_: __unityagents__ `from unityagents import UnityEnvironment`
         return env, state_size, action_size, brain_name
 
     env, state_size, action_size, brain_name = create_env("/data/Banana_Linux_NoVis/Banana.x86_64") ## your path here
-
+```
 
 
 ## Agent
