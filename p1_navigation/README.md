@@ -6,6 +6,16 @@ This repo contains implementation of two DQN Agents in __PyTorch__:
 
 Agents are tested on the Banana environment packaged and provided by Udacity.
 
+### Table of contents
+* [Environment](#environment)
+    * [Goal & Reward](#goal-reward)
+    * [Properties of the Environment](#properties-of-the-environment)
+    * [Installing Python Environment](installing-python-environment)
+    * [Quick Setup of Environment](#quick-setup-of-environment)
+    * [Quick Initialization of Environment](#quick-initialization-of-environment)
+* [Agent](#agent)
+    * [Hyperparameters](#hyperparameters)
+    * [Performance](#performance)
 
 ## Environment
 ---
@@ -29,7 +39,46 @@ _source of the environment:_ __Udacity - Deep Reinforcement Learning__
 _engine_: __unityagents__ `from unityagents import UnityEnvironment`
 
 
-### Quick setup
+### Installing Python environment
+
+Python environment can be set up as follows, as per the [Udacity DRLND guide](https://github.com/udacity/deep-reinforcement-learning#dependencies):
+
+1. Create (and activate) a new environment with Python 3.6.
+
+Linux or Mac:
+```python
+    conda create --name drlnd python=3.6
+    source activate drlnd
+```
+Windows:
+```python
+    conda create --name drlnd python=3.6 
+    activate drlnd 
+```
+
+2. Follow the instructions in this repository to perform a minimal install of OpenAI gym.
+
+- Next, install the classic control environment group by following the instructions here.
+- Then, install the box2d environment group by following the instructions here.
+
+3. Clone the repository (if you haven't already!), and navigate to the python/ folder. Then, install several dependencies.
+
+```python
+    git clone https://github.com/udacity/deep-reinforcement-learning.git
+    cd deep-reinforcement-learning/python
+    pip install .
+```
+
+4. Create an IPython kernel for the drlnd environment.
+```python
+    python -m ipykernel install --user --name drlnd --display-name "drlnd"
+```
+
+5. Before running code in a notebook, change the kernel to match the drlnd environment by using the drop-down Kernel menu.
+
+More info on the original Udacity [DRLND repo](https://github.com/udacity/deep-reinforcement-learning).
+
+### Quick setup of Environment
 
 1. Download the environment from one of the links below.  You need only select the environment that matches your operating system:
     - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux.zip)
@@ -43,7 +92,7 @@ _engine_: __unityagents__ `from unityagents import UnityEnvironment`
 
 2. Place the file in the DRLND GitHub repository, in the `p1_navigation/` folder, and unzip (or decompress) the file. 
 
-### Quick start
+### Quick initialization of Environment
 ```python
 def create_env(file_name):
         # please do not modify the line below
