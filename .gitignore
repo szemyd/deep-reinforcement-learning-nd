@@ -106,3 +106,5 @@ ENV/
 p1_navigation/Banana_Windows_x86_64/
 
 p1_navigation/Banana_Windows_x86/
+
+p2_continuous-control/Reacher_Windows_x86_64/
