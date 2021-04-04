@@ -7,6 +7,7 @@ import torch.nn.functional as F
 
 class Actor(nn.Module):
     def __init__(self, state_space, action_space, hidden_layer_param = [50, 50]):
+        super(Actor, self).__init__()
 
         self.fc_in = nn.Linear(state_space, hidden_layer_param[0])
         self.hidden_layers = [nn.Linear(hidden_layer_param[i], hidden_layer_param[i+1]) for i in range(len(hidden_layer_param)-1)]
@@ -28,6 +29,7 @@ class Actor(nn.Module):
 
 class Critic(nn.Module):
     def __init__(self, state_space, action_space, hidden_layer_param = [50, 50]):
+        super(Critic, self).__init__()
 
         self.fc_in = nn.Linear(state_space, hidden_layer_param[0])
         self.hidden_layers = [nn.Linear(hidden_layer_param[i], hidden_layer_param[i+1]) for i in range(len(hidden_layer_param)-1)]
