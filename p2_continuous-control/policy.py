@@ -17,13 +17,15 @@ class Actor(nn.Module):
 
 
     def forward(self, state):
-        x = state.view(-1)
+        # print(state)
+        # x = state.view(-1, state.shape[0])
+        x = torch.from_numpy(state).float()
         x = self.activation(self.fc_in(x))
 
         for hidden_layer in self.hidden_layers:
-            x = activation(hidden_layer(x))
+            x = self.activation(hidden_layer(x))
 
-        x = self.activation(self.fc_out) 
+        x = self.activation(self.fc_out(x)) 
 
         return F.tanh(x)
 
@@ -33,17 +35,20 @@ class Critic(nn.Module):
 
         self.fc_in = nn.Linear(state_space, hidden_layer_param[0])
         self.hidden_layers = [nn.Linear(hidden_layer_param[i], hidden_layer_param[i+1]) for i in range(len(hidden_layer_param)-1)]
-        self.fc_out = nn.Linear(hidden_layer_param[-1], action_space)
+        
+        # Critic throws back a single value (output = 1), which is the estimated value of the given state # 
+        self.fc_out = nn.Linear(hidden_layer_param[-1], 1)
 
         self.activation = nn.ReLU()
 
     def forward(self, state):
-        x = state.view(-1)
+        # x = state.view(-1)
+        x = torch.from_numpy(state).float()
         x = self.activation(self.fc_in(x))
 
         for hidden_layer in self.hidden_layers:
-            x = activation(hidden_layer(x))
+            x = self.activation(hidden_layer(x))
 
-        x = self.activation(self.fc_out) 
+        x = self.activation(self.fc_out(x)) 
 
-        return F.tanh(x)
+        return x
