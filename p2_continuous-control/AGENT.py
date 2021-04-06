@@ -27,6 +27,11 @@ class DDPG_Agent():
         self.memory = ReplayBuffer(action_size, random_seed)
 
         self.seed = random.seed(random_seed)
+        print("")
+        print("--- Agent Params ---")
+        print("Going to train on {}".format(DEVICE))
+        print("Learning Rate:: Actor: {} | Critic: {}".format(LR_ACTOR, LR_CRITIC))
+        print("Replay Buffer:: Buffer Size: {} | Sampled Batch size: {}".format(BUFFER_SIZE, BATCH_SIZE))
     
     def act(self, state):
         state = torch.from_numpy(state).float().to(DEVICE)

@@ -1,4 +1,5 @@
 {
     "jupyter.jupyterServerType": "local",
-    "python.pythonPath": "C:\\Users\\danie\\anaconda3\\envs\\drlnd\\python.exe"
+    "python.pythonPath": "C:\\Users\\danie\\anaconda3\\envs\\drlnd\\python.exe",
+    "ai.azureml.defaultWorkspaceId": "/subscriptions/11b3468d-7929-4b44-b5aa-11e1211b729e/resourceGroups/deep-reinforcement-learning/providers/Microsoft.MachineLearningServices/workspaces/deep-reinforcement-learning"
 }

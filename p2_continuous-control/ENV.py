@@ -2,8 +2,8 @@
 from unityagents import UnityEnvironment
 import numpy as np
 
-def environment_loader(name):
-    env = UnityEnvironment(file_name=name)
+def environment_loader(name, no_graphics):
+    env = UnityEnvironment(file_name=name, no_graphics = no_graphics)
 
     # get the default brain
     brain_name = env.brain_names[0]
