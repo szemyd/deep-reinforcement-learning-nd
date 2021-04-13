@@ -13,9 +13,27 @@ BATCH_SIZE = 128                # Minibatch size
 
 # Learning parameters #
 GAMMA = 0.99                    # Discount rate
-LR_ACTOR = 1e-4                 # Learning rate for Actor optimization
+LR_ACTOR = 2e-3                 # Learning rate for Actor optimization
 LR_CRITIC = 1e-3                # Learning rate for Critic optimization
-CRITERION = F.mse_loss        # What criterion to use when comparing expected return to target return
+CRITERION = F.mse_loss          # What criterion to use when comparing expected return to target return
+WEIGHT_DECAY= 0                 # L2 weight decay
+TAU = 1.3e-3                    # Target Mixin probability
 
-# Target Mixin probability
-TAU = 1e-3 
+print("")
+print("--- General Training parameters ---")
+print("DEVICE: ", DEVICE)
+
+print("")
+print("--- Replay Buffer parameters ---")
+print("BUFFER_SIZE: ", BUFFER_SIZE)
+print("UPDATE_EVERY: ", UPDATE_EVERY)
+print("BATCH_SIZE: ", BATCH_SIZE)
+
+print("")
+print("--- Learning parameters ---")
+print("GAMMA: ", GAMMA)
+print("LR_ACTOR: ", LR_ACTOR)
+print("LR_CRITIC: ", LR_CRITIC)
+print("CRITERION: ", CRITERION)
+print("WEIGHT_DECAY: ", WEIGHT_DECAY)
+print("TAU: ", TAU)
