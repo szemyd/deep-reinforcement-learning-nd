@@ -40,7 +40,7 @@ class Actor(nn.Module):
         for hidden_layer in self.hidden_layers:
             x = F.relu(hidden_layer(x))
 
-        x = F.relu(self.fc_out(x)) 
+        x = self.fc_out(x)
 
         return torch.tanh(x)
 

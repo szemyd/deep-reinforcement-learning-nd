@@ -1,5 +1,6 @@
 ## Deep Deterministic Policy Gradients ##
 from model import Actor, Critic    # These are our models
+# from model_provided import Actor, Critic    # These are our models
 import numpy as np
 import random                       # Used for random seed
 import copy                         # This is used for the mixing of target and local model parameters
@@ -17,10 +18,14 @@ class DDPG_Agent():
 
         self.seed = random.seed(random_seed)
 
-        self.actor_local = Actor(state_size, action_size, hidden_layer_param=actor_hidden).to(DEVICE)
-        self.actor_target = Actor(state_size, action_size, hidden_layer_param=actor_hidden).to(DEVICE)
-        self.critic_local = Critic(state_size, action_size, hidden_layer_param=critic_hidden).to(DEVICE)
-        self.critic_target = Critic(state_size, action_size, hidden_layer_param=critic_hidden).to(DEVICE)
+        # self.actor_local = Actor(state_size, action_size, random_seed).to(DEVICE)
+        # self.actor_target = Actor(state_size, action_size, random_seed).to(DEVICE)
+        # self.critic_local = Critic(state_size, action_size, random_seed).to(DEVICE)
+        # self.critic_target = Critic(state_size, action_size, random_seed).to(DEVICE)
+        self.actor_local = Actor(state_size, action_size, random_seed, hidden_layer_param=actor_hidden).to(DEVICE)
+        self.actor_target = Actor(state_size, action_size, random_seed, hidden_layer_param=actor_hidden).to(DEVICE)
+        self.critic_local = Critic(state_size, action_size, random_seed, hidden_layer_param=critic_hidden).to(DEVICE)
+        self.critic_target = Critic(state_size, action_size, random_seed, hidden_layer_param=critic_hidden).to(DEVICE)
 
         self.actor_opt = optim.Adam(self.actor_local.parameters(), lr=LR_ACTOR)
         self.critic_opt = optim.Adam(self.critic_local.parameters(), lr=LR_CRITIC, weight_decay=WEIGHT_DECAY)
@@ -33,7 +38,7 @@ class DDPG_Agent():
 
         self.soft_update(self.critic_local, self.critic_target, 1) 
         self.soft_update(self.actor_local, self.actor_target, 1) 
-        
+
         print("")
         print("--- Agent Params ---")
         print("Going to train on {}".format(DEVICE))
@@ -126,7 +131,7 @@ class DDPG_Agent():
 class OUNoise:
     """Ornstein-Uhlenbeck process."""
 
-    def __init__(self, size, seed, mu=0., theta=0.15, sigma=0.2):
+    def __init__(self, size, seed, mu=0., theta=0.15, sigma=0.05):
         """Initialize parameters and noise process."""
         self.mu = mu * np.ones(size)
         self.theta = theta
