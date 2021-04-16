@@ -31,7 +31,7 @@ class DDPG_Agent():
         self.critic_opt = optim.Adam(self.critic_local.parameters(), lr=LR_CRITIC, weight_decay=WEIGHT_DECAY)
         
         # Noise process
-        self.noise = OUNoise(action_size, random_seed)
+        self.noise = OUNoise(action_size, random_seed, MU, THETA, SIGMA)
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, random_seed)
@@ -129,10 +129,15 @@ class DDPG_Agent():
 
 
 class OUNoise:
-    """Ornstein-Uhlenbeck process."""
+    """Ornstein-Uhlenbeck process. https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process"""
 
     def __init__(self, size, seed, mu=0., theta=0.15, sigma=0.05):
         """Initialize parameters and noise process."""
+        """ 
+            MU is to which the function mean reverts 
+            THETA: how "strongly" the system reacts to perturbations
+            SIGMA: variation or size of the noise
+        """
         self.mu = mu * np.ones(size)
         self.theta = theta
         self.sigma = sigma

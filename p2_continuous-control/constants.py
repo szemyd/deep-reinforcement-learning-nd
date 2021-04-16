@@ -19,6 +19,11 @@ CRITERION = F.mse_loss          # What criterion to use when comparing expected 
 WEIGHT_DECAY= 0                 # L2 weight decay
 TAU = 1e-3                      # Target Mixin probability
 
+# OUNoise parameters #
+MU=0.
+THETA=0.15
+SIGMA=0.1
+
 print("")
 print("--- General Training parameters ---")
 print("DEVICE: ", DEVICE)
@@ -37,3 +42,9 @@ print("LR_CRITIC: ", LR_CRITIC)
 print("CRITERION: ", CRITERION)
 print("WEIGHT_DECAY: ", WEIGHT_DECAY)
 print("TAU: ", TAU)
+
+print("")
+print("--- OUNoise ---")
+print("MU: ", MU)
+print("THETA: ", THETA)
+print("SIGMA: ", SIGMA)
