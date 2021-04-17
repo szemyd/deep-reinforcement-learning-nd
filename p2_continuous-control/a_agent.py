@@ -1,12 +1,12 @@
 ## Deep Deterministic Policy Gradients ##
-from model import Actor, Critic    # These are our models
+from a_model import Actor, Critic    # These are our models
 # from model_provided import Actor, Critic    # These are our models
 import numpy as np
 import random                       # Used for random seed
 import copy                         # This is used for the mixing of target and local model parameters
 
 from constants import *             # Capital lettered variables are constants from the constants.py file
-from MEMORY import ReplayBuffer     # Our replaybuffer, where we store the experiences
+from a_memory import ReplayBuffer     # Our replaybuffer, where we store the experiences
 
 import torch
 import torch.nn.functional as F
