@@ -7,6 +7,7 @@ import torch.nn.functional as F
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")     # Training on GPU or CPU
 SCORES_WINDOW = 100
 SAVE_PATH = "Trained_Agents/"
+SAVE_EXP_PATH = "Experiments/"
 
 # Replay Buffer parameters #
 BUFFER_SIZE = int(1e5)          # Replay Buffer size
@@ -33,6 +34,8 @@ def print_constants():
     print("--- General Training parameters ---")
     print("DEVICE: ", DEVICE)
     print("SCORES_WINDOW: ", SCORES_WINDOW)
+    print("SAVE_PATH: ", SAVE_PATH)
+    print("SAVE_EXP_PATH: ", SAVE_EXP_PATH)
 
     print("")
     print("--- Replay Buffer parameters ---")
