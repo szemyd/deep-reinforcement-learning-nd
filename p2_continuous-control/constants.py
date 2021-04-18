@@ -21,13 +21,13 @@ LR_CRITIC = 1e-4                # Learning rate for Critic optimization
 CRITERION = F.mse_loss          # What criterion to use when comparing expected return to target return
 WEIGHT_DECAY= 0                 # L2 weight decay
 TAU = 1e-3                      # Target Mixin probability
-ACTOR_H = [128,128]               # Hidden layer size of Actor Network       
-CRITIC_H = [128,128]              # Hidden layer size of Critic Network
+ACTOR_H = [48, 48]              # Hidden layer size of Actor Network       
+CRITIC_H =  [48, 48]            # Hidden layer size of Critic Network
 
 # OUNoise parameters #
 MU=0.
 THETA=0.15
-SIGMA=0.1
+SIGMA=0.05
 
 def print_constants():
     print("")

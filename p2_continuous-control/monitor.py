@@ -14,7 +14,7 @@ def calculate_moving_avarage(scores, num_agent=1, scores_window=SCORES_WINDOW):
     return moving_avarages
 
 
-def render_save_graph(scores, scores_window = 0, num_agent = 1, path= SAVE_EXP_PATH):
+def render_save_graph(scores, scores_window = 0, num_agent = 1, path= SAVE_EXP_PATH, goal=0):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
@@ -28,6 +28,8 @@ def render_save_graph(scores, scores_window = 0, num_agent = 1, path= SAVE_EXP_P
 
     plt.ylabel('Score')
     plt.xlabel('Episode #')
+
+    if goal>0: plt.axhline(y=goal, color='c', linestyle='--')
 
     hyperparameter_string, for_filename  = get_constant_string()
 
@@ -51,13 +53,13 @@ def save_scores(scores, path=SAVE_EXP_PATH):
     print("Scores saved!")
 
 
-def read_scores(created_time=''.format(time.strftime("%Y-%m-%d_%H%M")), path=SAVE_EXP_PATH):
+def read_scores(network_name=''.format(time.strftime("%Y-%m-%d_%H%M")), path=SAVE_EXP_PATH):
 
     if os.path.exists(path):
 
-        _, for_filename  = get_constant_string()
+        # _, for_filename  = get_constant_string()
 
-        with open("{}Scores_{}_{}.csv".format(path, created_time, for_filename), newline='') as f:
+        with open("{}{}.csv".format(path, network_name), newline='') as f:
             reader = csv.reader(f)
             read_score_history = list(reader)[0]
 
