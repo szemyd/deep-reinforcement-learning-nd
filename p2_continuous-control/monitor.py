@@ -14,7 +14,7 @@ def calculate_moving_avarage(scores, num_agent=1, scores_window=SCORES_WINDOW):
     return moving_avarages
 
 
-def render_save_graph(scores, scores_window = 0, num_agent = 1, path= SAVE_EXP_PATH, goal=0):
+def render_save_graph(scores, save_name=None, scores_window = 0, num_agent = 1, path= SAVE_EXP_PATH, goal=0):
     fig = plt.figure()
     ax = fig.add_subplot(111)
 
@@ -34,7 +34,12 @@ def render_save_graph(scores, scores_window = 0, num_agent = 1, path= SAVE_EXP_P
     hyperparameter_string, for_filename  = get_constant_string()
 
     plt.title(hyperparameter_string)
-    plt.savefig("{}Figure_{}_{}.jpg".format(path, time.strftime("%Y-%m-%d_%H%M"), for_filename), bbox_inches='tight')
+
+    if save_name:
+        plt.savefig('{}{}.jpg'.format(path, save_name), bbox_inches='tight')
+    else: 
+        plt.savefig("{}Figure_{}_{}.jpg".format(path, time.strftime("%Y-%m-%d_%H%M"), for_filename), bbox_inches='tight')
+        print("No file name specified to save to")
     
     plt.show()
 

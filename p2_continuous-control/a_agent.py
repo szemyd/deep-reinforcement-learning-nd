@@ -93,6 +93,7 @@ class DDPG_Agent():
 
         self.critic_opt.zero_grad()
         critic_loss.backward()
+        torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
         self.critic_opt.step()
 
 
