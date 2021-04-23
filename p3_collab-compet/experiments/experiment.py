@@ -8,7 +8,7 @@ from utilities.monitor import save_scores, render_figure, save_states
 
 
 class Experiment():
-    def __init__(self, name, environment, agents, max_t=100, num_episodes=1000, goal = 0., save_states_every = 0):
+    def __init__(self, name, environment, agents, max_t=100, num_episodes=1000, goal = 0., save_states_every = 0, brain_name="", experiment_num=0):
         self.name = name
         self.environment = environment
         self.agents = agents
@@ -18,6 +18,8 @@ class Experiment():
         self.save_states_every = save_states_every
 
         self.id = uuid.uuid4()
+        self.brain_name =brain_name
+        self.experiment_num=experiment_num
 
         logging.basicConfig(filename='experiments/logs/{}-{}.log'.format(time.strftime(
             "%Y-%m-%d_%H%M"),str(self.id)),
@@ -32,9 +34,11 @@ class Experiment():
             try:
                 score_history, state_history = train(env=self.environment,
                                                     agents=self.agents,
+                                                    brain_name = self.brain_name,
                                                     max_t=self.max_t,
                                                     num_episodes=self.num_episodes,
-                                                    save_states_every=self.save_states_every)
+                                                    save_states_every=self.save_states_every,
+                                                    experiment_num=self.experiment_num)
             except Exception as e:
                 print("Encountered an error, going to log into file")
                 self.__save_error(e)
@@ -43,14 +47,16 @@ class Experiment():
         else:
             return train(env=self.environment,
                         agents=self.agents,
+                        brain_name = self.brain_name,
                         max_t=self.max_t,
                         num_episodes=self.num_episodes,
-                        save_states_every=self.save_states_every )
+                        save_states_every=self.save_states_every,
+                        experiment_num=self.experiment_num )
 
 
 
     def save(self, score_history=[], state_history=[], options=['scores', 'figures', 'states'], display = True, scores_window=0):
-        #if 'scores' in options: save_scores(score_history, agents = self.agents, name = self.name)
+        if 'scores' in options: save_scores(score_history, agents = self.agents, name = self.name)
         if 'states' in options: save_states(state_history, name=self.name)
         render_figure(score_history, agents = self.agents, name=self.name,  goal=self.goal, display=display, save= 'figures' in options, scores_window=scores_window) 
 

@@ -9,9 +9,8 @@ import os
 
 
 def calculate_moving_avarage(scores, num_agent=1, scores_window=100):
-    single_agent_returns = scores
-    moving_avarages = [np.convolve(scores[i], np.ones(
-        scores_window)/scores_window, mode='valid') for i in range(num_agent)]
+    single_agent_returns = np.transpose(np.array(scores))
+    moving_avarages = [np.convolve(single_agent_returns[i], np.ones(scores_window)/scores_window, mode='valid') for i in range(num_agent)]
 
     return moving_avarages
 
@@ -41,8 +40,7 @@ def render_figure(scores, agents, name="", scores_window=0, path="", goal=0, sav
 
     # --- Plot moving avarages --- #
     if scores_window > 0:
-        moving_avarages = calculate_moving_avarage(
-            [scores], len(agents), scores_window=scores_window)
+        moving_avarages = calculate_moving_avarage(scores, len(agents), scores_window=scores_window)
 
         for i_agent in range(len(moving_avarages)):
             plt.plot(np.arange(len(moving_avarages[i_agent]) + scores_window)[scores_window:], moving_avarages[i_agent], 'g-')

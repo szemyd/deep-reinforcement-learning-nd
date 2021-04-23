@@ -35,7 +35,7 @@ class Actor(nn.Module):
         if self.output_type is 'probs':
             self.output_calc = F.softmax
         elif self.output_type is 'vectors':
-            self.output_calc = torch.tanh(dim = 1)
+            self.output_calc = torch.tanh
     
         # self.reset_parameters()
 
