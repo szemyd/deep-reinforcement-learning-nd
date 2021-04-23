@@ -43,7 +43,7 @@ def train(env, agents, brain_name, max_t, num_episodes, scores_window=100, print
                     for j, agent in enumerate(agents):
                         torch.save(agent.actor_local.state_dict(), 'experiments/exp_{}__agent_{}_actor.pth'.format(experiment_num, j))
                         torch.save(agent.critic_local.state_dict(), 'experiments/exp_{}__agent_{}_critic.pth'.format(experiment_num, j))
-                    last_running_mean = mean(scores_deque)
+                    last_running_mean = np.mean(scores_deque)
 
                     [agent.save() for agent in agents]
                     last_running_mean = np.mean(scores_deque)
