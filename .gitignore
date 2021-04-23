@@ -112,3 +112,9 @@ p2_continuous-control/Reacher_Windows_x86_64/
 p2_continuous-control/Reacher_Single/
 
 p2_continuous-control/Reacher_Multiple/
+
+p3_collab-compet/environment/Tennis_Data/
+
+p3_collab-compet/environment/Tennis.exe
+
+p3_collab-compet/environment/UnityPlayer.dll
