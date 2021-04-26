@@ -14,17 +14,15 @@ import torch
 def fileAtLocation(filename, path):
     return os.path.exists(path + filename)
 
-def load_previous(new_agent, config):
-    _, filename = get_constant_string() ##"checkpoint_actor.pth"
+def load_previous(agent, filename, path):
     filename_actor = filename +'_actor.pth'
     filename_critic = filename + '_critic.pth'
-    path = config.SAVE_PATH
 
-    loaded_agent = new_agent
+    loaded_agent = agent
     if fileAtLocation(filename_actor, path):
         print("Found previous trained Agent with same neural nets, going to load them!")
-        loaded_agent.actor_local.load_state_dict(torch.load(config.SAVE_PATH + filename_actor))
-        loaded_agent.critic_local.load_state_dict(torch.load(config.SAVE_PATH + filename_critic))
+        loaded_agent.actor_local.load_state_dict(torch.load(path + filename_actor))
+        loaded_agent.critic_local.load_state_dict(torch.load(path + filename_critic))
     else:
         print("Didn't find any saved agents")
     return loaded_agent

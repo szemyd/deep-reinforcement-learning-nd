@@ -14,6 +14,14 @@ def calculate_moving_avarage(scores, num_agent=1, scores_window=100):
 
     return moving_avarages
 
+def calculate_max(scores):
+    new_scores = scores.copy()
+
+    for i, episode_score in enumerate(new_scores):
+        new_scores[i] = np.delete(episode_score, np.argmin(episode_score))
+
+    print(new_scores[-5:])
+    return new_scores
 
 def render_figure(scores, agents, name="", scores_window=0, path="", goal=0, save=False, display= True):
     if len(path) < 1:
@@ -41,10 +49,12 @@ def render_figure(scores, agents, name="", scores_window=0, path="", goal=0, sav
     # --- Plot moving avarages --- #
     if scores_window > 0:
         moving_avarages = calculate_moving_avarage(scores, len(agents), scores_window=scores_window)
+        best_of_two = calculate_moving_avarage(calculate_max(scores), 1, scores_window=scores_window)
 
         for i_agent in range(len(moving_avarages)):
             plt.plot(np.arange(len(moving_avarages[i_agent]) + scores_window)[scores_window:], moving_avarages[i_agent], 'g-')
-
+        
+        plt.plot(np.arange(len(best_of_two[0]) + scores_window)[scores_window:], best_of_two[0], 'k-')
     if goal > 0.: plt.axhline(y=goal, color='c', linestyle='--')
 
     # --- Save and Display --- #

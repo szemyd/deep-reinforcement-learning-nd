@@ -3,9 +3,8 @@ import numpy as np
 from utilities.helper import flatten
 import torch
 
-def train(env, agents, brain_name, max_t, num_episodes, scores_window=100, print_every = 20, save_states_every = 0, experiment_num=0):
-    score_history = []
-    state_history = []
+def train(env, agents, brain_name, max_t, num_episodes, score_history=[], state_history=[], scores_window=100, print_every = 20, save_states_every = 0, experiment_num=0):
+
     scores_deque = deque(score_history[-scores_window:], maxlen=scores_window)
     last_running_mean = float('-inf')
 

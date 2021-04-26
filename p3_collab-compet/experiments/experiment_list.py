@@ -20,8 +20,8 @@ import itertools
 
 # --- AGENTS --- #
 # DDPG
-LR = [0.01, 0.001, 0.0001]
-actor_critic = [[60, 60], [96, 96], [120, 120], [160, 160], [240, 240]]
+LR = [0.0001]
+actor_critic = [[140, 140]]
 config_ddpg = [actor_critic, LR]
 
 exp_config_ddpg = list(itertools.product(*config_ddpg))
